@@ -2,6 +2,8 @@ import { createStore } from 'vuex'
 import axios from 'axios'
 import createPersistedState from 'vuex-persistedstate' // vuex-persistedstate를 사용합니다.
 
+const BASE_URL = process.env.VUE_APP_SERVER_URI
+
 export default createStore({
   state: {
     loginSuccess: false,
@@ -10,18 +12,18 @@ export default createStore({
     password: null
   },
   getters: {
-    isLoggedIn: state => state.loginSuccess,
-    isLoginError: state => state.loginError,
-    getUserName: state => state.userName,
-    getUserPass: state => state.password
+    isLoggedIn: (state) => state.loginSuccess,
+    isLoginError: (state) => state.loginError,
+    getUserName: (state) => state.userName,
+    getUserPass: (state) => state.password
   },
   mutations: {
-    loginSuccess (state, { userName, password }) { // user와 password를 userName으로 수정
+    loginSuccess (state, { userName, password }) {
       state.loginSuccess = true
       state.userName = userName
       state.password = password
     },
-    loginError (state, { userName, password }) { // user와 password를 userName으로 수정
+    loginError (state, { userName, password }) {
       state.loginError = true
       state.userName = userName
       state.password = password
@@ -34,12 +36,18 @@ export default createStore({
     }
   },
   actions: {
-    async login ({ commit }, { userName, password }) { // user를 userName으로 수정
+    async login ({ commit }, { userName, password }) {
       try {
-        const result = await axios.post('/api/login', {
-          userName: userName,
-          password: password
-        })
+        const result = await axios.post(
+          `${BASE_URL}/api/login`,
+          {
+            id: userName,
+            pw: password
+          },
+          {
+            headers: { 'Content-Type': 'application/json' } // JSON 형식으로 데이터 전송
+          }
+        )
         if (result.status === 200) {
           commit('loginSuccess', {
             userName: userName,
