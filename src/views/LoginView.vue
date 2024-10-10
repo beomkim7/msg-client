@@ -6,17 +6,7 @@
           아이디 비밀번호를 확인해주세요.
         </span>
       </h5>
-      <form @submit.prevent="login()">
-        <div class="form-floating">
-          <input v-model="user" type="text" class="form-control" placeholder="ID">
-          <label for="floatingInput">ID</label>
-        </div>
-        <div class="form-floating">
-          <input v-model="password" type="password" class="form-control" id="password" placeholder="Password">
-          <label for="floatingPassword">Password</label>
-        </div>
-        <button class="w-100 btn btn-lg btn-primary" variant="success" type="submit">Sign in</button>
-      </form>
+
     </div>
     <div v-else>
       <h1 class="h3 mb-3 fw-normal">
@@ -25,17 +15,6 @@
         </span>
       </h1>
       <h5>로그인 하지 않았습니다.</h5>
-      <form @submit.prevent="login()">
-        <div class="form-floating">
-          <input v-model="user" type="text" class="form-control" placeholder="ID">
-          <label for="floatingInput">ID</label>
-        </div>
-        <div class="form-floating">
-          <input v-model="password" type="password" class="form-control" id="password" placeholder="Password">
-          <label for="floatingPassword">Password</label>
-        </div>
-        <button class="w-100 btn btn-lg btn-primary" variant="success" type="submit">Sign in</button>
-      </form>
     </div>
   </main>
 </template>
