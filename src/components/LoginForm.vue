@@ -11,3 +11,33 @@
         <button class="w-100 btn btn-lg btn-primary" variant="success" type="submit">Sign in</button>
       </form>
 </template>
+
+<script>
+export default {
+  name: 'LoginForm',
+  data () {
+    return {
+      loginSuccess: false,
+      loginError: false,
+      user: '',
+      password: '',
+      error: false
+    }
+  },
+  methods: {
+    async login () {
+      try {
+        await this.$store.dispatch('login', {
+          userName: this.userName,
+          password: this.password
+        })
+        await this.$store.push({ name: 'AboutView' })
+      } catch (err) {
+        this.loginError = true
+        this.error = true
+        throw new Error(err)
+      }
+    }
+  }
+}
+</script>
